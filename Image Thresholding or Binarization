@@ -1,0 +1,9 @@
+%Image Thresholding or Binarization:
+%First converting the RGB image to greyscale:
+I = rgb2gray(img);
+%Global Threshold:
+level = graythresh(I);
+BW = imbinarize(I,level);
+subplot(1,1,1)
+imshowpair(I,BW,'montage')
+title('Image Thresholding')
