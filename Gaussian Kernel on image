@@ -1,0 +1,5 @@
+%Gaussian Kernel:
+B = imgaussfilt(rgbImage,2);
+%idisp(B)
+imshowpair(rgbImage,B,’montage’)
+title(‘Original Image vs Gaussian Filtered Image’)
