@@ -1,0 +1,30 @@
+%one picture:
+%Morphological Erosion and Dilation:
+eg_morph1
+idisp(im)
+S = ones(5,5);
+e = ierode(im,S);
+idisp(e)
+f = idilate(im,S);
+idisp(f)
+out = iopen(im, S);
+idisp(out)
+out1 = iclose(im, S);
+idisp(out1)
+
+%Adding a different image:
+img = iread('f.png','double','grey');
+idisp(img)
+S1 = ones(15,15);
+%Erosion:
+q = ierode(img,S1);
+idisp(q)
+%Dilation:
+p = idilate(img,S1);
+idisp(p)
+%Erosion followed by Dilation:
+c = iopen(img,S1);
+idisp(c)
+%Dilation followed by erosion:
+d = iclose(img,S1);
+idisp(d)
