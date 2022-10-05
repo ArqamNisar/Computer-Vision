@@ -1,0 +1,39 @@
+%Original Image Display:
+img=imread('Me1.jpg');
+figure
+subplot(3,2,1)
+imshow('Me1.jpg')
+title('Orignal Image')
+%Translation
+translation = imtranslate(img,[300,400]);
+subplot(3,2,2)
+imshowpair(img,translation,'montage')
+title('Translation')
+%Euclidean
+rotation = imrotate(img,35);
+euclidean = imtranslate(rotation,[60,80]);
+subplot(3,2,3)
+imshowpair(img,euclidean,'montage')
+title('Euclidean')
+%Similarity
+rotation = imrotate(img,35);
+similarity = imresize(rotation, 0.75);
+Similarity_image = imtranslate(similarity, [25,25]);
+subplot(3,2,4)
+imshowpair(img,Similarity_image,'montage')
+title('Similarity')
+%Affine Transformation:
+affine_transformation = affine2d([1 0 0;0.5 1 0; 0 0 1]);
+affine_image = imwarp(img,affine_transformation);
+subplot(3,2,5)
+imshowpair(img, affine_image, 'montage')
+title ('Affine 2D Transformation')
+%Projective Transformation:
+theta = 30;
+projective_transformation = [cosd(theta) -sind(theta) 0.0001; sind(theta)
+cosd(theta) 0.0001; 0 0 1];
+transformation = projective2d(projective_transformation);
+projective = imwarp(img,transformation);
+subplot(3,2,6)
+imshowpair(img, projective,'montage')
+title('Projective 2D Transformation')
