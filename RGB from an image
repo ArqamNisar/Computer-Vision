@@ -1,0 +1,9 @@
+%Acquiring pixel information from an image:
+img = imread('Me1.jpg');
+subplot(3,2,1)
+imshow(img);
+title('Original Image')
+%RGB Conversion:
+R = img(:,:,1);
+G = img(:,:,2);
+B = img(:,:,3);
