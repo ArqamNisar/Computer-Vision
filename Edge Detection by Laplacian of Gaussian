@@ -1,0 +1,11 @@
+a = iread('Text.jpg','double','grey');
+idisp(a)
+
+%Laplacian of Gaussian:
+L = klaplace();
+lap = iconvolve( a, klog(2) );
+p = lap(360,400:520);
+plot(400:520, p, '--b');
+%Zero Crossing:
+zc = zcross(lap);
+idisp(zc)
