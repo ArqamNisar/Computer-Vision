@@ -1,0 +1,13 @@
+%HSV for color object detection
+flowers= iread('flowers8.png', 'double');
+about flowers
+hsv = colorspace('RGB->HSV', flowers);
+about hsv
+figure
+idisp(flowers)
+figure
+idisp( hsv(:,:,1) )
+figure
+idisp( hsv(:,:,2) )
+figure
+idisp( hsv(:,:,3) )
