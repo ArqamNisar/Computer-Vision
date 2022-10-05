@@ -1,0 +1,32 @@
+%Monadic Image Processing:
+%Conversion to Double:
+%using D for double-normalization:
+x = double(img);
+x(1,1,:)
+%Normalizing the double-formatted image information:
+D = x/256;
+%Demo for visualization:
+D(1,5,:)
+%Brightness:
+Y = D + 0.3;
+D(1,1,:)
+Y(1,1,:)
+subplot(2,2,1)
+imshow(Y)
+title('Brightness Factor')
+%Contrast:
+C = 2*D;
+subplot(2,2,2)
+imshow(C)
+title('Contrast Factor')
+%Negative:
+N = 1-D;
+subplot(2,2,3)
+imshow(N)
+title('Neagative Factor')
+%Gamma Correction:
+r = 0.5;
+R = D.^r;
+subplot(2,2,4)
+imshow(R)
+title('Gamma Correction')
