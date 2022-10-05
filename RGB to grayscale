@@ -1,0 +1,3 @@
+%Grayscale:
+g = rgb2gray(img);
+imshow(g)
