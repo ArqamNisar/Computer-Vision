@@ -1,0 +1,34 @@
+im1 = iread('a.jpeg','double','reduce',2);
+im2 = iread('b.jpeg','double','reduce',2);
+sf1 = isurf(im1);
+sf2 = isurf(im2);
+m = sf1.match(sf2,'top',1000)
+[H,r] = m.ransac(@homography, 4)
+m.show
+idisp(im1)
+plot_point(m.inlier.p1, 'ys')
+m = m.outlier
+[F,r] = m.ransac(@fmatrix,1e-4, 'verbose');
+cam = CentralCamera('image', im1);
+cam.plot_epiline(F', m.inlier.subset(40).p2, 'y');
+[~,md] = iread('a.jpeg');
+f = md.DigitalCamera.FocalLength
+md.Model
+cam = CentralCamera('image', im1, 'focal', f/1000, ...
+'pixel', 2*1.5e-6)
+E = cam.E(F)
+T = cam.invE(E, [0,0,10]')
+T.torpy('yxz', 'deg')
+t = T.t;
+T.t = 0.3 * t/t(1)
+r1 = cam.ray(m(1).p1)
+r2 = cam.move(T).ray(m(1).p2)
+[P,e] = r1.intersect(r2);
+e
+m2 = m.inlier.subset(100);
+r1 = cam.ray( m2.p1 );
+r2 = cam.move(T).ray( m2.p2 );
+[P,e] = r1.intersect(r2);
+z = P(3,:);
+idisp(im1)
+plot_point(m2.p1, 'y+', 'textcolor', 'y', 'printf', {'%.1f', z});
