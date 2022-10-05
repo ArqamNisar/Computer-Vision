@@ -1,0 +1,27 @@
+%Point Features:
+%Harris Corner Detectors:
+b1 = iread('building2-1.png', 'grey', 'double');
+idisp(b1)
+C = icorner(b1, 'nfeat', 200);
+idisp(b1, 'dark');
+C.plot('ws');
+title('Classical Corner Detectors')
+%Scale Space Corner Detectors:
+im = iread('scale-space.png', 'double');
+[G,L,s] = iscalespace(im, 60, 2);
+idisp(L(:,:,5), 'invsigned')
+f = iscalemax(L, s)
+idisp(im)
+f(1:4).plot('g+')
+f(1:4).plot_scale('r')
+title('Scale Space Corner Detectors')
+%Scale Space Point Features:
+sf1 = isurf(b1, 'nfeat', 200);
+figure
+hold on
+idisp(b1, 'dark');
+sf1.plot_scale('g', 'clock')
+title('SURF Point Features')
+figure
+hist(sf1.scale, 100,'b');
+title('Histogram with logarithmic feature scales')
