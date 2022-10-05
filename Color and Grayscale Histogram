@@ -1,0 +1,8 @@
+%Color Image Histogram:
+subplot(2,1,1)
+histogram(img);
+title('Color Image Histogram')
+%Grayscale Histogram:
+subplot(2,1,2)
+histogram(g)
+title('Grayscale Image Histogram')
