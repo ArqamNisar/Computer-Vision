@@ -1,0 +1,22 @@
+img = iread('w.jpg', 'double','grey');
+idisp(img)
+%Chromaticity:
+linear = igamm(img, 'sRGB');
+[b,r] = tristim2cc(linear);
+ihist(r)
+%Masking:
+mask = r < 0.333;
+idisp(mask)
+%The image in which true is white:
+mask3 = icolor( idouble(mask) );
+%Image of subject without background:
+idisp(mask3 .* img)
+%Desired Background Image:
+bg = iread('road.png', 'double');
+%To be the same size as original image:
+bg = isamesize(bg,img);
+%Cutout for the subject:
+idisp(bg.* (1-mask3))
+%Image formed:
+idisp( img.*mask3 + bg.*(1-mask3) );
+ipixswitch(mask, img, bg); 
