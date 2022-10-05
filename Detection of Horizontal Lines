@@ -1,0 +1,9 @@
+%Mathematical Morphology to detect horizontal lines:
+a = iread('Text.jpg','double','grey');
+idisp(a)
+%Structuring element or kernel for horizontal line detection:
+SE = [0 0 1 0 0;0 0 1 0 0;0 0 1 0 0;0 0 1 0 0;0 0 1 0 0];
+S = SE';
+%Convolve command for horizontal lines detection done previously:
+O = iconv(a,S,'valid');
+idisp(O,'invsigned')
