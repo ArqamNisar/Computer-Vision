@@ -1,0 +1,30 @@
+%Histogram Normalization:
+im = iread('Me1.jpg');
+g = rgb2gray(im);
+subplot(2,2,1)
+imshow(g)
+title('Original Image')
+subplot(2,2,2)
+imhist(g,64);
+title('Histogram ')
+G = histeq(g);
+subplot(2,2,3)
+imshow(G)
+title('Histogram Normalization')
+subplot(2,2,4)
+imhist(G,64)
+title('Normalize Histogram')
+%Original/Colored image Histogram Normalization:
+subplot(2,2,1)
+imshow(im)
+title('Original Image')
+subplot(2,2,2)
+imhist(im,64);
+title('Histogram ')
+G = histeq(im);
+subplot(2,2,3)
+imshow(G)
+title('Histogram Normalization')
+subplot(2,2,4)
+imhist(G,64)
+title('Normalize Histogram')
