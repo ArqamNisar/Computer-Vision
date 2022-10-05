@@ -1,0 +1,23 @@
+%Normalized RGB for Color Object Detection:
+flowers= iread('flowers8.png', 'double');
+R=flowers(:,:,1);
+G=flowers(:,:,2);
+B=flowers(:,:,3);
+%Displaying RGB color pattern pixel wise in the image:
+figure
+idisp(R)
+figure
+idisp(G)
+figure
+idisp(B)
+%Normalizing RGB by dividing each color by all the pixel values:
+r=(R./(R+G+B));
+g=(G./(R+G+B));
+b=(B./(R+G+B));
+%Displaying normalized RGB color scheme for the image:
+figure
+idisp(r)
+figure
+idisp(g)
+figure
+idisp(b)
