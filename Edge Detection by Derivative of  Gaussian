@@ -1,0 +1,20 @@
+a = iread('Text.jpg','double','grey');
+idisp(a)
+
+%Derivative of Gaussian:
+Gu = iconvolve( Du, kgauss(2) , 'full');
+%Horizontal component of DoG:
+Iu = iconvolve( a, kdgauss(2) );
+%vertical component of DoG:
+Iv = iconvolve( a, kdgauss(2)' );
+%Magnitude at each pixel:
+m = sqrt( Iu.^2 + Iv.^2 );
+%the direction at each pixel:
+th = atan2( Iv, Iu);
+%Best view at quiver plot:
+quiver(1:10:numcols(th), 1:10:numrows(th), ...
+Iu(1:10:end,1:10:end), Iv(1:10:end,1:10:end))
+%Gradient images:
+[du,dv] = isobel( a, kdgauss(2) );
+%Canny operator:
+edges = icanny(a, 2);
