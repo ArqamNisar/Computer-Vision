@@ -1,0 +1,26 @@
+#Importing Computer Vision library:
+import cv2
+#Importing Numpy
+import numpy as np
+#Function to read input image:
+img = cv2.imread('1.jpg')
+#Width and Height of our desired image:
+w,h = 2500,3600
+#The two points for making a Homograph Matrix:
+point1 =
+np.float32([[585,601],[241,3337],[2713,3257],[2337,665]])
+point2 = np.float32([[0,0],[w,0],[0,h],[w,h]])
+#Just checking the authenticity of the point information:
+print(point1)
+#Highlighting the image using Circle function:
+for x in range(0,4):
+ cv2.circle(img,
+(point1[x][0],point1[x][1]),5,(255,0,0),cv2.FILLED)
+#Homography Matrix:
+H_matrix = cv2.getPerspectiveTransform(point1,point2)
+#Ouput Image to be transformed:
+output = cv2.warpPerspective(img, H_matrix,(w,h))
+#Input image display:
+cv2.imshow('Original Image', img)
+#Rectified Image:
+cv2.imshow('Transformed Image', output)
