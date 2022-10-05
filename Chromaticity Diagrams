@@ -1,0 +1,10 @@
+%Chromaticity Diagram:
+lambda = [400:800]*1e-9;
+cmf = cmfxyz(lambda);
+plot(lambda, cmf);
+title('Lambda Plot')
+[x,y] = lambda2xy(lambda);
+plot(x,y)
+title('Lambda to XY')
+showcolorspace('xy')
+title('Chromaticity Diagram')
