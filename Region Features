@@ -1,0 +1,38 @@
+%Region Features:
+%Histogram and Classification:
+castle = iread('castle.png', 'double');
+idisp(castle >= 0.7)
+title('Original Image at 0.7 threshold')
+ithresh(castle)
+ithresh(castle*0.8)
+ihist(castle,'b');
+title('Histogram')
+t = otsu(castle)
+castle = iread('castle2.png', 'double');
+t = otsu(castle)
+%Image with highlight:
+t = niblack(castle, -0.1, 30);
+idisp(t)
+title('Niblack Thresholding')
+idisp(castle >= t)
+title('Binary Segmentation')
+%MSER:
+[mser,nsets] = imser(castle, 'area', [100 400]);
+idisp(mser, 'colormap', 'jet')
+title('Segmentation using MSER for 1 MSER found.')
+%Color Classification:
+im_targets = iread('yellowtargets.png');
+%Kmeans Clustering:
+[cls, cab,resid] = colorkmeans(im_targets, 2, 'ab');
+showcolorspace(cab, 'ab');
+title('cluster centers on the a*b*-plane')
+colorname(cab(:,1), 'ab')
+figure
+idisp(cls, 'colormap', flag(2), 'bar')
+title('Cluster 01')
+%Logical Image:
+cls = colorkmeans(im_targets, cab, 'ab');
+cls1 = (cls == 1);
+figure
+idisp(cls1)
+title('Logical Image')
