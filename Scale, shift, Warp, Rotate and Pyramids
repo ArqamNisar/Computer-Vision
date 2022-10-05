@@ -1,0 +1,30 @@
+%Scaling:
+im = iread('2.jpg','double','grey');
+idisp(im)
+%Reducing the scale:
+smaller = iscale(im,0.5);
+idisp(smaller)
+%Increasing the size of scaled image:
+bigger = iscale(smaller,5);
+idisp(bigger)
+%Pyramids:
+p = ipyramid(im,1,6);
+idisp(p)
+%Scale and Shifting:
+pass = iread('Me1.jpg', 'double', 'grey');
+a = isize(pass)
+[Ui,Vi] = imeshgrid(pass);
+%Assigning U and V-primes:
+[Up,Vp] = imeshgrid(800, 800);
+%Scale and Shifting:
+U = 4*(Up-100);
+V = 4*(Vp-200);
+%Warping:
+warped = interp2(Ui, Vi, pass, U, V);
+idisp(warped)
+%Rotation:
+t = irotate(pass, pi/6);
+idisp(t)
+%Scale Shift and Rotation:
+s = irotate(warped,pi/6);
+idisp(s)
