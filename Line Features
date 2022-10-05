@@ -1,0 +1,25 @@
+%%Line Features%%
+im = testpattern('squares', 256, 256, 128);
+im = irotate(im, -0.3);
+edges = icanny(im);
+idisp(edges)
+title('Edges Detected')
+h = Hough(edges)
+h.show();
+lines = h.lines()
+h = Hough(edges, 'suppress', 5)
+lines = h.lines()
+idisp(im);
+h.plot('b')
+title('Lines Detected')
+im = iread('church.png', 'grey', 'double');
+edges = icanny(im);
+h = Hough(edges, 'suppress', 10);
+lines = h.lines();
+idisp(im, 'dark');
+lines(1:10).plot('g');
+title('Lines Features')
+lines = lines.seglength(edges);
+k = find( lines.length > 80);
+lines(k).plot('b--')
+title('Different Line Features')
