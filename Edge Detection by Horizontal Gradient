@@ -1,0 +1,10 @@
+%Edge Detection:
+a = iread('Text.jpg','double','grey');
+idisp(a)
+p = a(360,:);
+plot(p)
+plot(diff(p))
+%[x y] = getpts for template matching;
+%Horizontal Gradient:
+K = [0.5 0 -0.5];
+idisp( iconvolve(a, K), 'invsigned')
