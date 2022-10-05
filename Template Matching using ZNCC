@@ -1,0 +1,12 @@
+image = iread('Me1.jpg','double','grey');
+idisp(image)
+eye = iread('E1.png','double','grey');
+idisp(eye)
+
+S = isimilarity(eye, image, @zncc);
+idisp(S, 'colormap', 'jet', 'bar')
+[mx,p] = peak2(S, 1, 'npeaks', 5);
+mx
+idisp(image);
+plot_circle(p, 30, 'edgecolor', 'g')
+plot_point(p, 'sequence', 'bold', 'textsize', 24, 'textcolor', 'y')
