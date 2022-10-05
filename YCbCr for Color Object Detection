@@ -1,0 +1,14 @@
+%YCbCr for color object detection
+flowers= iread('flowers8.png', 'double');
+about flowers
+ycbcr = rgb2ycbcr(flowers);
+about ycbcr
+figure
+idisp(flowers)
+figure
+idisp(ycbcr)
+idisp( ycbcr(:,:,1) )
+figure
+idisp( ycbcr(:,:,2) )
+figure
+idisp( ycbcr(:,:,3) )
