@@ -1,0 +1,64 @@
+#Importing libraries:
+from imutils.video import VideoStream
+import numpy as np
+import imutils
+import time
+import cv2
+#Loading our serial model from the system:
+print("loading model for detection:")
+network =
+cv2.dnn.readNetFromCaffe('deploy.prototxt.txt','res10_300x300_ssd_iter_140000.caffemodel')
+#Initializing the video stream:
+print("Starting video stream:")
+#Accessing video stream from the camera:
+video = VideoStream(src=0).start()
+#Allowing the camera to war up for 5 seconds:
+time.sleep(5.0)
+# loop over the frames from the video:
+while True:
+#Accessing the video-stream:
+frame = video.read()
+ #Resizing the frame width to be 400 units of pixel:
+frame = imutils.resize(frame, width=400)
+#Convert the frame dimensions to a blob:
+(h, w) = frame.shape[:2]
+blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 1.0,
+(300, 300), (104.0, 177.0, 123.0))
+ #Intializing array for confidences:
+confidences=[]
+#Obtain the detections and predictions:
+network.setInput(blob)
+detections = network.forward()
+#Loop over the detections:
+for i in range(0, detections.shape[2]):
+#Extracting the confidence associated with the prediction:
+confidence = detections[0, 0, i, 2]
+#Filtering out weak detections by setting up a threshold for confidence:
+if confidence < 0.70:
+continue
+
+#Computing the xy-coordinates of the bounding boxes:
+box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
+(startX, startY, endX, endY) = box.astype("int")
+confidences.append(float(confidence))
+#Drawing the bounding box of the face along with the associated percentage of
+prediction:
+text = "{:.2f}%".format(confidence * 100)
+y = startY - 10 if startY - 10 > 10 else startY + 10
+ #Rectangle drawn:
+cv2.rectangle(frame, (startX, startY), (endX, endY),
+(0, 255, 0), 2)
+ #Putting text on the bounding box, i.e. percentage along with the font settings:
+cv2.putText(frame, text, (startX, y),cv2.FONT_HERSHEY_SIMPLEX, 0.45,
+(190, 0, 0), 2)
+#Displaying the output frame along with the counter:
+cv2.putText(frame, "No of people in the frame: "+str(len(confidences)), (30,
+30),cv2.FONT_HERSHEY_SIMPLEX, 0.45, (190, 0, 0), 2)
+cv2.imshow("Output Frame", frame)
+key = cv2.waitKey(1) & 0xFF
+#If the `Esc` key was pressed, break out from the while loop:
+if key == 27:
+break
+#Do a bit of cleanup at the very end:
+cv2.destroyAllWindows()
+video.stop()
