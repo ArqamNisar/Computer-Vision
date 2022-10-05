@@ -1,0 +1,7 @@
+a = iread('Text.jpg','double','grey');
+idisp(a)
+
+%Sobel kernel:
+Du = ksobel;
+idisp( iconvolve(a, Du), 'invsigned')
+idisp( iconvolve(a, Du'), 'invsigned')
